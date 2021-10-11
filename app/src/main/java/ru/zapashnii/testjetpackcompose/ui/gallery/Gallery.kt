@@ -2,9 +2,9 @@ package ru.zapashnii.testjetpackcompose.ui.gallery
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import ru.zapashnii.testjetpackcompose.ui.fields.AppButton
 import ru.zapashnii.testjetpackcompose.ui.fields.BottomBar
 import ru.zapashnii.testjetpackcompose.ui.fields.Toolbar
 import ru.zapashnii.testjetpackcompose.ui.theme.TestJetpackComposeTheme
@@ -32,5 +32,13 @@ fun ToolbarPreview2() {
 fun TabBarCardPreview() {
     TestJetpackComposeTheme {
         BottomBar()
+    }
+}
+
+@Preview
+@Composable
+fun AppButtonPreview() {
+    TestJetpackComposeTheme {
+        AppButton()
     }
 }

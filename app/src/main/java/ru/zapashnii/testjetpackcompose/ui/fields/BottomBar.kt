@@ -92,7 +92,6 @@ fun BottomBar(
                     Icon(Icons.Default.Settings, "Settings")
                 }
                 Row(
-                    modifier = Modifier.padding(start = 10.dp),
                     horizontalArrangement = Arrangement.End
                 ) {
                     Box(Modifier
