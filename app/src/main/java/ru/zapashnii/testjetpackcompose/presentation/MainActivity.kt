@@ -1,4 +1,4 @@
-package ru.zapashnii.testjetpackcompose
+package ru.zapashnii.testjetpackcompose.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
