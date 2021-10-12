@@ -21,29 +21,29 @@ import com.google.gson.annotations.SerializedName
  */
 data class Recipe(
     @SerializedName("pk")
-    val pk: Int? = null, // 583
+    val pk: Int? = null,
     @SerializedName("title")
-    val title: String? = null, // Pizza Potato Skins
+    val title: String? = null,
     @SerializedName("publisher")
-    val publisher: String? = null, // mitch
+    val publisher: String? = null,
     @SerializedName("featured_image")
-    val featuredImage: String? = null, // https://nyc3.digitaloceanspaces.com/food2fork/food2fork-static/featured_images/583/featured_image.png
+    val featuredImage: String? = null,
     @SerializedName("rating")
-    val rating: Int? = 0, // 16
+    val rating: Int? = 0,
     @SerializedName("source_url")
-    val sourceUrl: String? = null, // http://thepioneerwoman.com/cooking/2013/04/pizza-potato-skins/
+    val sourceUrl: String? = null,
     @SerializedName("description")
-    val description: String? = null, // N/A
+    val description: String? = null,
     @SerializedName("cooking_instructions")
-    val cookingInstructions: String? = null, // null
+    val cookingInstructions: String? = null,
     @SerializedName("ingredients")
     val ingredients: List<String?>? = listOf(),
     @SerializedName("date_added")
-    val dateAdded: String? = null, // November 11 2020
+    val dateAdded: String? = null,
     @SerializedName("date_updated")
-    val dateUpdated: String? = null, // November 11 2020
+    val dateUpdated: String? = null,
     @SerializedName("long_date_added")
-    val longDateAdded: Int? = 0, // 1606349126
+    val longDateAdded: Int? = 0,
     @SerializedName("long_date_updated")
-    val longDateUpdated: Int? = 0, // 1606349126
+    val longDateUpdated: Int? = 0,
 )

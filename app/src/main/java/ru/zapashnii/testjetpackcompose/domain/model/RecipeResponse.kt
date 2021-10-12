@@ -10,13 +10,13 @@ import com.google.gson.annotations.SerializedName
  * @property previous       предыдущая страница с данными
  * @property results        список рецептов
  */
-data class Response(
+data class RecipeResponse(
     @SerializedName("count")
-    val count: Int? = 0, // 118
+    val count: Int? = 0,
     @SerializedName("next")
-    val next: String? = null, // http://127.0.0.1:8000/api/recipe/search/?page=3&query=beef+carrot+potato+onion
+    val next: String? = null,
     @SerializedName("previous")
-    val previous: String? = null, // https://food2fork.ca/api/recipe/search/?query=beef+carrot+potato+onion
+    val previous: String? = null,
     @SerializedName("results")
     val results: List<Recipe?>? = listOf(),
 )
