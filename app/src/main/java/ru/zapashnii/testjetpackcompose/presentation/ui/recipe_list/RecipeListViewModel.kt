@@ -1,16 +1,13 @@
 package ru.zapashnii.testjetpackcompose.presentation.ui.recipe_list
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import ru.zapashnii.testjetpackcompose.domain.interactors.search_recipes.ISearchRecipesUseCase
 import ru.zapashnii.testjetpackcompose.domain.model.Recipe
 import ru.zapashnii.testjetpackcompose.domain.model.params.SearchRecipesParams
 import javax.inject.Inject
 
-class RecipeListViewModel @Inject constructor(
+class RecipeListViewModel (
     private val searchRecipesUseCase: ISearchRecipesUseCase,
 ) : ViewModel() {
 
@@ -70,5 +67,16 @@ class RecipeListViewModel @Inject constructor(
      */
     fun getSelectedTabIndex(): Int {
         return getIdFoodCategory(_query.value ?: "")
+    }
+
+    /** Фабрика [RecipeListViewModel] */
+    class Factory @Inject constructor(
+        private val searchRecipesUseCase: ISearchRecipesUseCase,
+    ) : ViewModelProvider.Factory {
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            return RecipeListViewModel(
+                searchRecipesUseCase = searchRecipesUseCase,
+            ) as T
+        }
     }
 }

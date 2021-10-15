@@ -3,6 +3,7 @@ package ru.zapashnii.testjetpackcompose.presentation
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import ru.zapashnii.testjetpackcompose.presentation.ui.recipe_list.RecipeListScreen
@@ -16,7 +17,8 @@ class MainActivity : ComponentActivity() {
     private var nameTitle: String = "Home"
 
     @Inject
-    lateinit var viewModel: RecipeListViewModel
+    lateinit var factory: RecipeListViewModel.Factory
+    private val viewModel: RecipeListViewModel by viewModels { factory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
