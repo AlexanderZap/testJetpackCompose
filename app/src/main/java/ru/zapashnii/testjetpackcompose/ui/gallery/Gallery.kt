@@ -4,9 +4,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import ru.zapashnii.testjetpackcompose.ui.fields.AppButton
-import ru.zapashnii.testjetpackcompose.ui.fields.BottomBar
-import ru.zapashnii.testjetpackcompose.ui.fields.Toolbar
+import ru.zapashnii.testjetpackcompose.ui.fields.*
 import ru.zapashnii.testjetpackcompose.ui.theme.TestJetpackComposeTheme
 
 /* Галерея компонетов приложения */
@@ -40,5 +38,21 @@ fun TabBarCardPreview() {
 fun AppButtonPreview() {
     TestJetpackComposeTheme {
         AppButton()
+    }
+}
+
+@Preview
+@Composable
+fun AppFoodCategoryScrollRowPreview() {
+    TestJetpackComposeTheme {
+        FoodCategoryScrollRow()
+    }
+}
+
+@Preview
+@Composable
+fun AppFoodCategoryChipPreview() {
+    TestJetpackComposeTheme {
+        FoodCategoryChip(category = "Chicken", onExecuteSearch = {}, onSelectedCategoryChanged = {})
     }
 }
