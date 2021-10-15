@@ -21,29 +21,29 @@ import com.google.gson.annotations.SerializedName
  */
 data class Recipe(
     @SerializedName("pk")
-    val pk: Int? = null,
+    var pk: Int? = null,
     @SerializedName("title")
-    val title: String? = null,
+    var title: String? = null,
     @SerializedName("publisher")
-    val publisher: String? = null,
+    var publisher: String? = null,
     @SerializedName("featured_image")
-    val featuredImage: String? = null,
+    var featuredImage: String? = null,
     @SerializedName("rating")
-    val rating: Int? = 0,
+    var rating: Int? = 0,
     @SerializedName("source_url")
-    val sourceUrl: String? = null,
+    var sourceUrl: String? = null,
     @SerializedName("description")
-    val description: String? = null,
+    var description: String? = null,
     @SerializedName("cooking_instructions")
-    val cookingInstructions: String? = null,
+    var cookingInstructions: String? = null,
     @SerializedName("ingredients")
-    val ingredients: List<String?>? = listOf(),
+    var ingredients: List<String?>? = listOf(),
     @SerializedName("date_added")
-    val dateAdded: String? = null,
+    var dateAdded: String? = null,
     @SerializedName("date_updated")
-    val dateUpdated: String? = null,
+    var dateUpdated: String? = null,
     @SerializedName("long_date_added")
-    val longDateAdded: Int? = 0,
+    var longDateAdded: Int? = 0,
     @SerializedName("long_date_updated")
-    val longDateUpdated: Int? = 0,
+    var longDateUpdated: Int? = 0,
 )
