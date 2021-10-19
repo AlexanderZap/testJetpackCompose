@@ -17,8 +17,8 @@ class MainActivity : ComponentActivity() {
     private var nameTitle: String = "Home"
 
     @Inject
-    lateinit var factory: RecipeListViewModel.Factory
-    private val viewModel: RecipeListViewModel by viewModels { factory }
+    lateinit var factoryRecipeList: RecipeListViewModel.Factory
+    private val viewModelRecipeList: RecipeListViewModel by viewModels { factoryRecipeList }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,12 +29,12 @@ class MainActivity : ComponentActivity() {
             TestJetpackComposeTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-                    RecipeListScreen(viewModel)
-                   /* val state = remember { mutableStateOf(nameTitle) }
-                    BottomBar(
-                        onTabBarClick = { state.value = it },
-                        nameTitle = state.value
-                    )*/
+                    RecipeListScreen(viewModelRecipeList)
+                    /* val state = remember { mutableStateOf(nameTitle) }
+                     BottomBar(
+                         onTabBarClick = { state.value = it },
+                         nameTitle = state.value
+                     )*/
                 }
             }
         }

@@ -29,7 +29,7 @@ class RecipeListViewModel (
         newSearch()
     }
 
-    /** Выполнить посик */
+    /** Выполнить поиск */
     fun newSearch() {
         viewModelScope.launch {
             val result = searchRecipesUseCase.getRecipe(SearchRecipesParams(
