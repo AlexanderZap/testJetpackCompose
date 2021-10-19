@@ -1,5 +1,6 @@
 package ru.zapashnii.testjetpackcompose.presentation.ui.recipe_list
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import ru.zapashnii.testjetpackcompose.domain.interactors.search_recipes.ISearchRecipesUseCase
@@ -23,6 +24,8 @@ class RecipeListViewModel (
     private var _query = MutableLiveData<String>().apply { value = "" }
     val query: LiveData<String> = _query
 
+    /** Идет загрузка */
+    val isLoading = mutableStateOf(false)
 
     /** Загрузить данные формы */
     fun loadData() {
@@ -32,12 +35,22 @@ class RecipeListViewModel (
     /** Выполнить поиск */
     fun newSearch() {
         viewModelScope.launch {
+            isLoading.value = true
+            resetSearchState()
+
             val result = searchRecipesUseCase.getRecipe(SearchRecipesParams(
                 page = 1,
                 query = _query.value ?: ""
             ))
             _recipes.value = result.results
+
+            isLoading.value = false
         }
+    }
+
+    /** Сбросить состояние поиска */
+    private fun resetSearchState() {
+        _recipes.value = listOf()
     }
 
     /**

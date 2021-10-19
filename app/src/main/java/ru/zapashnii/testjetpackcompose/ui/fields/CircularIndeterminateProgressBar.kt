@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 /**
  * Круглый индикатор загрузки
  *
- * @param isDisplayed       показать или срыть индикатор
+ * @param isDisplayed       показать или скрыть индикатор
  */
 @Composable
 fun CircularIndeterminateProgressBar(isDisplayed: Boolean) {
