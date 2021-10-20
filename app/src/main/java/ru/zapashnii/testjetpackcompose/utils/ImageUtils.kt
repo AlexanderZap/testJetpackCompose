@@ -61,3 +61,31 @@ fun loadPicture(
 
     return bitmapState
 }
+
+/**
+ * Загрузить изображение из ресурсов
+ *
+ * @param drawable      загружаемое изображение
+ * @return              загруженное изоюражение
+ */
+@Composable
+fun loadPicture(@DrawableRes drawable: Int): MutableState<Bitmap?> {
+
+    val bitmapState: MutableState<Bitmap?> = remember { mutableStateOf(null) }
+
+    // загрузить изображение из ресурсов
+    Glide.with(MainApp.instance.applicationContext)
+        .asBitmap()
+        .load(drawable)
+        .into(object : CustomTarget<Bitmap>() {
+            override fun onLoadCleared(placeholder: Drawable?) {}
+            override fun onResourceReady(
+                resource: Bitmap,
+                transition: Transition<in Bitmap>?,
+            ) {
+                bitmapState.value = resource
+            }
+        })
+
+    return bitmapState
+}
