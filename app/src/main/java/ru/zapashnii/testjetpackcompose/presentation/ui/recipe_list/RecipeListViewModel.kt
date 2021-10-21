@@ -8,7 +8,7 @@ import ru.zapashnii.testjetpackcompose.domain.model.Recipe
 import ru.zapashnii.testjetpackcompose.domain.model.params.SearchRecipesParams
 import javax.inject.Inject
 
-class RecipeListViewModel (
+class RecipeListViewModel(
     private val searchRecipesUseCase: ISearchRecipesUseCase,
 ) : ViewModel() {
 
@@ -59,7 +59,10 @@ class RecipeListViewModel (
      * @param query       новый запрос
      */
     fun onQueryChanged(query: String) {
-        this._query.value = query
+        if(query == FoodCategory.SEARCH.value)
+            this._query.value = ""
+        else
+            this._query.value = query
     }
 
     /**
