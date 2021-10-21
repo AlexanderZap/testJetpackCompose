@@ -8,6 +8,7 @@ import ru.zapashnii.testjetpackcompose.presentation.ui.recipe_list.FoodCategory.
  * @property value
  */
 enum class FoodCategory(val value: String) {
+    SEARCH("All Recipes"),
     CHICKEN("Chicken"),
     BEEF("Beef"),
     SOUP("Soup"),
@@ -25,7 +26,7 @@ enum class FoodCategory(val value: String) {
  * @return  список всех категорий
  */
 fun getAllFoodCategories(): List<FoodCategory> {
-    return listOf(CHICKEN, BEEF, SOUP, DESSERT, VEGETARIAN, MILK, VEGAN, PIZZA, DONUT)
+    return listOf(SEARCH,CHICKEN, BEEF, SOUP, DESSERT, VEGETARIAN, MILK, VEGAN, PIZZA, DONUT)
 }
 
 /**
