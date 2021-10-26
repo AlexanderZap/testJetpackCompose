@@ -66,7 +66,7 @@ fun RecipeCard(
                             .layoutId("${layoutId}Title")
                             .fillMaxWidth(0.85f)
                             .wrapContentWidth(Alignment.Start),
-                        style = MaterialTheme.typography.h5
+                        style = MaterialTheme.typography.h4
                     )
                     Text(
                         text = recipe.rating.toString(),
@@ -75,7 +75,7 @@ fun RecipeCard(
                             .fillMaxWidth()
                             .wrapContentWidth(Alignment.End)
                             .align(Alignment.CenterVertically),
-                        style = MaterialTheme.typography.h6
+                        style = MaterialTheme.typography.h5
                     )
                 }
             }

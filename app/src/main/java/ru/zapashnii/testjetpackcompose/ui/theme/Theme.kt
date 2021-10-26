@@ -45,7 +45,7 @@ fun TestJetpackComposeTheme(darkTheme: Boolean = isSystemInDarkTheme(), content:
 
     MaterialTheme(
         colors = colors,
-        typography = Typography,
+        typography = QuickSandTypography,
         shapes = Shapes,
         content = content
     )
