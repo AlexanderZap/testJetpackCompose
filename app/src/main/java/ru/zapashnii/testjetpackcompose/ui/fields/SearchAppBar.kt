@@ -8,17 +8,23 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.ThumbUp
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.key
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
 import ru.zapashnii.testjetpackcompose.presentation.ui.recipe_list.FoodCategory
+import ru.zapashnii.testjetpackcompose.R
 
 /**
  * Строка поиска с чипами разных категорий
@@ -30,6 +36,7 @@ import ru.zapashnii.testjetpackcompose.presentation.ui.recipe_list.FoodCategory
  * @param getSelectedTabIndex           Индекс выбранной категории
  * @param selectedCategory              Выбранная категория
  * @param onSelectedCategoryChanged     Нажатие на категорию
+ * @param onToggleTheme                 Нажатие на смену темы
  */
 @Composable
 fun SearchAppBar(
@@ -40,13 +47,14 @@ fun SearchAppBar(
     getSelectedTabIndex: Int,
     selectedCategory: FoodCategory?,
     onSelectedCategoryChanged: (String) -> Unit,
-){
+    onToggleTheme: () -> Unit,
+) {
     val focusManager = LocalFocusManager.current
 
     Surface(
         modifier = Modifier
             .fillMaxWidth(),
-        color = Color.White,
+        color = MaterialTheme.colors.surface,
         elevation = 8.dp,
     ) {
         Column {
@@ -76,6 +84,24 @@ fun SearchAppBar(
                         focusManager.clearFocus()
                     })
                 )
+                ConstraintLayout(
+                    modifier = Modifier.align(Alignment.CenterVertically)
+                ) {
+                    val menu = createRef()
+                    IconButton(
+                        modifier = Modifier.constrainAs(menu) {
+                            end.linkTo(parent.end)
+                            top.linkTo(parent.top)
+                            bottom.linkTo(parent.bottom)
+                        },
+                        onClick = onToggleTheme
+                    ) {
+                        Icon(
+                            painterResource(if (!MaterialTheme.colors.isLight) R.drawable.ic_sun_24dp else R.drawable.ic_moon_24dp),
+                            contentDescription = "Theme"
+                        )
+                    }
+                }
             }
             ScrollableTabRow(
                 modifier = Modifier
