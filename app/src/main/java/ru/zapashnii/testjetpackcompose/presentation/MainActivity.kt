@@ -4,12 +4,17 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
@@ -73,17 +78,20 @@ class MainActivity : ComponentActivity() {
                         },
                         drawerContent = { Text("Пункт меню 1", fontSize = 28.sp) },
                     ) {
+                        //TODO статичное укзание нижнего отступа
+                        Box(modifier = Modifier.padding(bottom = 64.dp)) {
+                            RecipeListScreen(viewModelRecipeList)
 
-                        RecipeListScreen(viewModelRecipeList)
+                            //показать snackbar
+                            DefaultSnackbar(
+                                snackbarHostState = scaffoldState.snackbarHostState,
+                                onDismiss = {
+                                    scaffoldState.snackbarHostState.currentSnackbarData?.dismiss()
+                                },
+                                modifier = Modifier.align(Alignment.BottomEnd)
+                            )
+                        }
 
-                        //показать snackbar TODO неверная позиция
-                        DefaultSnackbar(
-                            snackbarHostState = scaffoldState.snackbarHostState,
-                            onDismiss = {
-                                scaffoldState.snackbarHostState.currentSnackbarData?.dismiss()
-                            },
-                            //modifier = Modifier.align(Alignment.BottomEnd)
-                        )
                     }
                 }
             }
