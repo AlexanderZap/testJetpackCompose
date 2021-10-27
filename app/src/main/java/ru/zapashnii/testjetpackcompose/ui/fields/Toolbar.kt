@@ -12,6 +12,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.res.stringResource
 import ru.zapashnii.testjetpackcompose.R
+import ru.zapashnii.testjetpackcompose.ui.theme.Grey1
 
 /**
  * Тулбар с заголовком и кнопкой Назад
@@ -19,7 +20,7 @@ import ru.zapashnii.testjetpackcompose.R
  * @param textTitleRes          заголовок тулбара
  * @param layoutId              префикс идентификатора элемента в его родительском элементе
  * @param iconImageVector       изображение навигации. По умолчанию Стрелка Назад
- * @param onBackClick           нажатие на кнопку Назад
+ * @param onBackClick           нажатие на кнопку
  */
 @Composable
 fun Toolbar(
@@ -32,7 +33,8 @@ fun Toolbar(
         title = {
             Text(
                 modifier = Modifier.layoutId("${layoutId}Title"),
-                text = stringResource(id = textTitleRes)
+                text = stringResource(id = textTitleRes),
+                color = Grey1
             )
         },
         navigationIcon = {
