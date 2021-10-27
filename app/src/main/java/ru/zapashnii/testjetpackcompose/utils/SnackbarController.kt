@@ -12,8 +12,7 @@ import kotlinx.coroutines.launch
  *
  * @property scope      корутина
  */
-class SnackbarController
-constructor(
+class SnackbarController(
     private val scope: CoroutineScope,
 ) {
 

@@ -11,12 +11,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import ru.zapashnii.testjetpackcompose.presentation.ui.recipe_list.RecipeListScreen
 import ru.zapashnii.testjetpackcompose.presentation.ui.recipe_list.RecipeListViewModel
 import ru.zapashnii.testjetpackcompose.ui.fields.BottomBar
+import ru.zapashnii.testjetpackcompose.ui.fields.DefaultSnackbar
 import ru.zapashnii.testjetpackcompose.ui.fields.Toolbar
 import ru.zapashnii.testjetpackcompose.ui.theme.TestJetpackComposeTheme
+import ru.zapashnii.testjetpackcompose.utils.SnackbarController
 import ru.zapashnii.testjetpackcompose.utils.appComponent
 import javax.inject.Inject
 
@@ -27,6 +30,9 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var factoryRecipeList: RecipeListViewModel.Factory
     private val viewModelRecipeList: RecipeListViewModel by viewModels { factoryRecipeList }
+
+    //для snackbar
+    private val snackbarController = SnackbarController(lifecycleScope)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +47,7 @@ class MainActivity : ComponentActivity() {
 
                     Scaffold(
                         scaffoldState = scaffoldState,
+                        snackbarHost = { scaffoldState.snackbarHostState },
                         topBar = {
                             Toolbar(
                                 iconImageVector = Icons.Filled.Menu,
@@ -50,14 +57,33 @@ class MainActivity : ComponentActivity() {
                         bottomBar = {
                             val state = remember { mutableStateOf(nameTitle) }
                             BottomBar(
-                                onTabBarClick = { state.value = it },
+                                onTabBarClick = {
+                                    state.value = it
+                                    snackbarController.getScope().launch {
+                                        snackbarController.showSnackbar(
+                                            scaffoldState = scaffoldState,
+                                            message = "Click $it",
+                                            actionLabel = "Hide"
+                                        )
+                                    }
+                                },
                                 nameTitle = state.value,
                                 countNotification = 100
                             )
                         },
                         drawerContent = { Text("Пункт меню 1", fontSize = 28.sp) },
                     ) {
+
                         RecipeListScreen(viewModelRecipeList)
+
+                        //показать snackbar TODO неверная позиция
+                        DefaultSnackbar(
+                            snackbarHostState = scaffoldState.snackbarHostState,
+                            onDismiss = {
+                                scaffoldState.snackbarHostState.currentSnackbarData?.dismiss()
+                            },
+                            //modifier = Modifier.align(Alignment.BottomEnd)
+                        )
                     }
                 }
             }

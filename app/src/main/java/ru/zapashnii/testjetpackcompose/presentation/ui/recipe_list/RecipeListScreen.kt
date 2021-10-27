@@ -17,10 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import ru.zapashnii.testjetpackcompose.domain.model.Recipe
 import ru.zapashnii.testjetpackcompose.ui.common.VisibilityAnimationComponent
-import ru.zapashnii.testjetpackcompose.ui.fields.CircularIndeterminateProgressBar
-import ru.zapashnii.testjetpackcompose.ui.fields.LoadingRecipeListShimmer
-import ru.zapashnii.testjetpackcompose.ui.fields.RecipeCard
-import ru.zapashnii.testjetpackcompose.ui.fields.SearchAppBar
+import ru.zapashnii.testjetpackcompose.ui.fields.*
 
 /**
  * Экран список рецептов со строкой поиска сверху
