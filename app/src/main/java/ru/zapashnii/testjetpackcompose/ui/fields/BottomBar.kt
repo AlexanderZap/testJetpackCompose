@@ -19,19 +19,31 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.zapashnii.testjetpackcompose.R
+import ru.zapashnii.testjetpackcompose.data.const.EMAIL
+import ru.zapashnii.testjetpackcompose.data.const.HOME
+import ru.zapashnii.testjetpackcompose.data.const.SEARCH
+import ru.zapashnii.testjetpackcompose.data.const.SETTINGS
+import ru.zapashnii.testjetpackcompose.ui.theme.Black2
+import ru.zapashnii.testjetpackcompose.ui.theme.Grey1
 
 /**
  * Нижня панель навигации
  *
- * @param layoutId          префикс идентификатора элемента в его родительском элементе
- * @param onTabBarClick     нажатие на карточку
- * @param nameTitle         название карточки, на которой фокус
+ * @param layoutId                  префикс идентификатора элемента в его родительском элементе
+ * @param onTabBarClick             нажатие на карточку
+ * @param nameTitle                 название карточки, на которой фокус
+ * @param defaultColor              цвет иконки без фокуса
+ * @param focusColor                цвет иконки на которой фокус
+ * @param countNotification         колличесво оповещений(новых сообщений)
  */
 @Composable
 fun BottomBar(
     layoutId: String = "BottomBar",
     onTabBarClick: (nameTitle: String) -> Unit = {},
-    nameTitle: String = "Home",
+    nameTitle: String = HOME,
+    defaultColor: Color = Black2,
+    focusColor: Color = Grey1,
+    countNotification: Int = 0,
 ) {
     BottomNavigation(
         elevation = 12.dp,
@@ -39,9 +51,9 @@ fun BottomBar(
     ) {
         BottomNavigationItem(
             modifier = Modifier.layoutId("${layoutId}Home"),
-            icon = { Icon(Icons.Default.Home, "Home") },
-            selected = nameTitle == "Home",
-            onClick = { onTabBarClick("Home") },
+            icon = { Icon(Icons.Default.Home, HOME) },
+            selected = nameTitle == HOME,
+            onClick = { onTabBarClick(HOME) },
             label = {
                 Text(
                     modifier = Modifier.layoutId("${layoutId}Home"),
@@ -49,15 +61,15 @@ fun BottomBar(
                 )
             },
             alwaysShowLabel = false,
-            selectedContentColor = Color.Red,
-            unselectedContentColor = Color.Gray,
+            selectedContentColor = focusColor,
+            unselectedContentColor = defaultColor,
         )
 
         BottomNavigationItem(
             modifier = Modifier.layoutId("${layoutId}Search"),
-            icon = { Icon(Icons.Default.Search, "Search") },
-            selected = nameTitle == "Search",
-            onClick = { onTabBarClick("Search") },
+            icon = { Icon(Icons.Default.Search, SEARCH) },
+            selected = nameTitle == SEARCH,
+            onClick = { onTabBarClick(SEARCH) },
             alwaysShowLabel = false,
             label = {
                 Text(
@@ -65,15 +77,38 @@ fun BottomBar(
                     text = stringResource(id = R.string.search)
                 )
             },
-            selectedContentColor = Color.Red,
-            unselectedContentColor = Color.Gray,
+            selectedContentColor = focusColor,
+            unselectedContentColor = defaultColor,
         )
 
         BottomNavigationItem(
             modifier = Modifier.layoutId("${layoutId}Email"),
-            icon = { Icon(Icons.Default.Email, "Email") },
-            selected = nameTitle == "Email",
-            onClick = { onTabBarClick("Email") },
+            icon = {
+                Box {
+                    Icon(Icons.Default.Email, EMAIL)
+                }
+                if (countNotification != 0)
+                    Row(
+                        horizontalArrangement = Arrangement.End
+                    ) {
+                        Box(Modifier
+                            .clip(MaterialTheme.shapes.large.copy(CornerSize(4.dp)))
+                            .wrapContentSize()
+                            .background(Color.Red)
+                            .align(Alignment.Top),
+                            contentAlignment = Alignment.Center) {
+                            Text(
+                                modifier = Modifier.padding(bottom = 2.dp, start = 2.dp),
+                                color = focusColor,
+                                text = if (countNotification > 99) "99+" else countNotification.toString(),
+                                fontSize = 8.sp,
+
+                                )
+                        }
+                    }
+            },
+            selected = nameTitle == EMAIL,
+            onClick = { onTabBarClick(EMAIL) },
             alwaysShowLabel = false,
             label = {
                 Text(
@@ -81,37 +116,15 @@ fun BottomBar(
                     text = stringResource(id = R.string.email)
                 )
             },
-            selectedContentColor = Color.Red,
-            unselectedContentColor = Color.Gray,
+            selectedContentColor = focusColor,
+            unselectedContentColor = defaultColor,
         )
 
         BottomNavigationItem(
             modifier = Modifier.layoutId("${layoutId}Settings"),
-            icon = {
-                Box {
-                    Icon(Icons.Default.Settings, "Settings")
-                }
-                Row(
-                    horizontalArrangement = Arrangement.End
-                ) {
-                    Box(Modifier
-                        .clip(MaterialTheme.shapes.large.copy(CornerSize(4.dp)))
-                        .wrapContentSize()
-                        .background(Color.Red)
-                        .align(Alignment.Top),
-                        contentAlignment = Alignment.Center) {
-                        Text(
-                            modifier = Modifier.padding(end = 2.dp, start = 2.dp),
-                            color = Color.White,
-                            text = "99",
-                            fontSize = 6.sp,
-
-                            )
-                    }
-                }
-            },
-            selected = nameTitle == "Settings",
-            onClick = { onTabBarClick("Settings") },
+            icon = { Icon(Icons.Default.Settings, SETTINGS) },
+            selected = nameTitle == SETTINGS,
+            onClick = { onTabBarClick(SETTINGS) },
             alwaysShowLabel = false,
             label = {
                 Text(
@@ -119,8 +132,8 @@ fun BottomBar(
                     text = stringResource(id = R.string.settings)
                 )
             },
-            selectedContentColor = Color.Red,
-            unselectedContentColor = Color.Gray,
+            selectedContentColor = focusColor,
+            unselectedContentColor = defaultColor,
         )
     }
 }

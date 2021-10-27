@@ -33,7 +33,7 @@ fun ToolbarPreview2() {
 @Composable
 fun TabBarCardPreview() {
     TestJetpackComposeTheme {
-        BottomBar()
+        BottomBar(countNotification = 100)
     }
 }
 
