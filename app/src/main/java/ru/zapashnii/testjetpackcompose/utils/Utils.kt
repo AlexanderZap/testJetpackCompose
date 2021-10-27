@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.annotation.StringRes
 import androidx.fragment.app.FragmentActivity
 import ru.zapashnii.testjetpackcompose.di.MainApp
 
@@ -52,5 +53,15 @@ object Utils {
         }
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         context?.startActivity(intent)
+    }
+
+    /**
+     * Получить тест по ID ресурса
+     *
+     * @param name      ID ресурса
+     * @return          текст
+     */
+    fun getString(@StringRes name: Int): String {
+        return MainApp.instance.getString(name)
     }
 }
