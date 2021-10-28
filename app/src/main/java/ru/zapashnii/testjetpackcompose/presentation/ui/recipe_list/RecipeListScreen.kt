@@ -15,6 +15,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import ru.zapashnii.testjetpackcompose.data.const.PAGE_SIZE
 import ru.zapashnii.testjetpackcompose.domain.model.Recipe
 import ru.zapashnii.testjetpackcompose.ui.common.VisibilityAnimationComponent
 import ru.zapashnii.testjetpackcompose.ui.fields.*
@@ -27,8 +28,6 @@ import ru.zapashnii.testjetpackcompose.ui.fields.*
 @Composable
 fun RecipeListScreen(viewModel: RecipeListViewModel) {
 
-    viewModel.loadData()
-
     //список рецептов
     val recipes by viewModel.recipes.observeAsState(emptyList())
     //параметры запроса
@@ -37,6 +36,8 @@ fun RecipeListScreen(viewModel: RecipeListViewModel) {
     val selectedCategory by viewModel.selectedCategory.observeAsState()
     //идет загрузка
     val isLoading = viewModel.isLoading.value
+    //номер страницы с рецептами
+    val page = viewModel.page.value
 
     Column {
         SearchAppBar(
@@ -60,6 +61,10 @@ fun RecipeListScreen(viewModel: RecipeListViewModel) {
                 itemsIndexed(
                     items = recipes ?: mutableListOf()
                 ) { index, recipe ->
+                    viewModel.onChangeRecipeScrollPosition(index)
+                    if ((index + 1) >= (page * PAGE_SIZE) && !isLoading) {
+                        viewModel.nextPage()
+                    }
                     RecipeCard(recipe = recipe ?: Recipe(), onCardClick = {})
                 }
             }

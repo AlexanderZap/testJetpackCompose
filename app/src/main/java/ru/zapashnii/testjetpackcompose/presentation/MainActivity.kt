@@ -78,7 +78,7 @@ class MainActivity : ComponentActivity() {
                         },
                         drawerContent = { Text("Пункт меню 1", fontSize = 28.sp) },
                     ) {
-                        //TODO статичное укзание нижнего отступа
+                        //TODO статичное указание нижнего отступа
                         Box(modifier = Modifier.padding(bottom = 64.dp)) {
                             RecipeListScreen(viewModelRecipeList)
 

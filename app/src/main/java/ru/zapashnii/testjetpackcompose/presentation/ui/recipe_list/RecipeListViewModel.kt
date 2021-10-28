@@ -2,7 +2,9 @@ package ru.zapashnii.testjetpackcompose.presentation.ui.recipe_list
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.*
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import ru.zapashnii.testjetpackcompose.data.const.PAGE_SIZE
 import ru.zapashnii.testjetpackcompose.domain.interactors.search_recipes.ISearchRecipesUseCase
 import ru.zapashnii.testjetpackcompose.domain.model.Recipe
 import ru.zapashnii.testjetpackcompose.domain.model.params.SearchRecipesParams
@@ -27,8 +29,14 @@ class RecipeListViewModel(
     /** Идет загрузка */
     val isLoading = mutableStateOf(false)
 
+    /** Номер страницы с рецептами */
+    val page = mutableStateOf(1)
+
+    /** Положение прокрутки списка рецептов */
+    private var recipeListScrollPosition = 0
+
     /** Загрузить данные формы */
-    fun loadData() {
+    init {
         newSearch()
     }
 
@@ -48,9 +56,58 @@ class RecipeListViewModel(
         }
     }
 
+    /** Загрузить следующую страницу с рецептами */
+    fun nextPage() {
+        viewModelScope.launch {
+            // предотвратить дублирование событий из-за быстрой перекомпоновки
+            if ((recipeListScrollPosition + 1) >= (page.value * PAGE_SIZE)) {
+                isLoading.value = true
+                incrementPage()
+                // просто чтобы показать разбиение на страницы, api работает быстро
+                delay(1000)
+
+                if (page.value > 1) {
+                    val result = searchRecipesUseCase.getRecipe(SearchRecipesParams(
+                        page = page.value,
+                        query = _query.value ?: ""
+                    )).results
+                    appendRecipes(result)
+                }
+                isLoading.value = false
+            }
+        }
+    }
+
+    /**
+     * Добавить новые рецепты к текущему списку рецептов
+     *
+     * @param recipes       список рецептов
+     */
+    private fun appendRecipes(recipes: List<Recipe?>?) {
+        val current = ArrayList(this.recipes.value)
+        recipes?.let { current.addAll(it) }
+        _recipes.value = current
+    }
+
+    /** Увеличить номер страницы */
+    private fun incrementPage() {
+        page.value = page.value + 1
+    }
+
+    /**
+     * Изменить позицию положения прокрутки списка рецептов
+     *
+     * @param position      новая позиция
+     */
+    fun onChangeRecipeScrollPosition(position: Int) {
+        recipeListScrollPosition = position
+    }
+
     /** Сбросить состояние поиска */
     private fun resetSearchState() {
         _recipes.value = listOf()
+        page.value = 1
+        onChangeRecipeScrollPosition(0)
     }
 
     /**
@@ -59,7 +116,7 @@ class RecipeListViewModel(
      * @param query       новый запрос
      */
     fun onQueryChanged(query: String) {
-        if(query == FoodCategory.SEARCH.value)
+        if (query == FoodCategory.SEARCH.value)
             this._query.value = ""
         else
             this._query.value = query
