@@ -15,18 +15,21 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import ru.zapashnii.testjetpackcompose.data.const.PAGE_SIZE
 import ru.zapashnii.testjetpackcompose.domain.model.Recipe
 import ru.zapashnii.testjetpackcompose.ui.common.VisibilityAnimationComponent
 import ru.zapashnii.testjetpackcompose.ui.fields.*
+import ru.zapashnii.testjetpackcompose.ui.navigation.RECIPE_SCREEN
 
 /**
  * Экран список рецептов со строкой поиска сверху
  *
- * @param viewModel         viewModel [RecipeListViewModel] для   этого экрана
+ * @param viewModel             viewModel [RecipeListViewModel] для этого экрана
+ * @param navController         для навигации
  */
 @Composable
-fun RecipeListScreen(viewModel: RecipeListViewModel) {
+fun RecipeListScreen(viewModel: RecipeListViewModel, navController: NavController) {
 
     //список рецептов
     val recipes by viewModel.recipes.observeAsState(emptyList())
@@ -65,7 +68,9 @@ fun RecipeListScreen(viewModel: RecipeListViewModel) {
                     if ((index + 1) >= (page * PAGE_SIZE) && !isLoading) {
                         viewModel.nextPage()
                     }
-                    RecipeCard(recipe = recipe ?: Recipe(), onCardClick = {})
+                    RecipeCard(recipe = recipe ?: Recipe(), onCardClick = {
+                        navController.navigate(RECIPE_SCREEN)
+                    })
                 }
             }
 

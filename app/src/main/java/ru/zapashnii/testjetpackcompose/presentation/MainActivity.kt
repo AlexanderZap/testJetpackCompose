@@ -18,11 +18,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
-import ru.zapashnii.testjetpackcompose.presentation.ui.recipe_list.RecipeListScreen
+import ru.zapashnii.testjetpackcompose.presentation.ui.recipe.RecipeViewModel
 import ru.zapashnii.testjetpackcompose.presentation.ui.recipe_list.RecipeListViewModel
 import ru.zapashnii.testjetpackcompose.ui.fields.BottomBar
 import ru.zapashnii.testjetpackcompose.ui.fields.DefaultSnackbar
 import ru.zapashnii.testjetpackcompose.ui.fields.Toolbar
+import ru.zapashnii.testjetpackcompose.ui.navigation.NavigationHost
 import ru.zapashnii.testjetpackcompose.ui.theme.TestJetpackComposeTheme
 import ru.zapashnii.testjetpackcompose.utils.SnackbarController
 import ru.zapashnii.testjetpackcompose.utils.appComponent
@@ -35,6 +36,10 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var factoryRecipeList: RecipeListViewModel.Factory
     private val viewModelRecipeList: RecipeListViewModel by viewModels { factoryRecipeList }
+
+    @Inject
+    lateinit var factoryRecipe: RecipeViewModel.Factory
+    private val viewModelRecipe: RecipeViewModel by viewModels { factoryRecipe }
 
     //для snackbar
     private val snackbarController = SnackbarController(lifecycleScope)
@@ -80,8 +85,10 @@ class MainActivity : ComponentActivity() {
                     ) {
                         //TODO статичное указание нижнего отступа
                         Box(modifier = Modifier.padding(bottom = 64.dp)) {
-                            RecipeListScreen(viewModelRecipeList)
-
+                            NavigationHost(
+                                viewModelRecipeList = viewModelRecipeList,
+                                viewModelRecipe = viewModelRecipe,
+                            )
                             //показать snackbar
                             DefaultSnackbar(
                                 snackbarHostState = scaffoldState.snackbarHostState,

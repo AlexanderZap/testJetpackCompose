@@ -1,9 +1,14 @@
 package ru.zapashnii.testjetpackcompose.presentation.ui.recipe
 
 import androidx.compose.runtime.Composable
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 
+/**
+ * Экран детализации рецепта
+ *
+ * @param viewModel             viewModel [RecipeViewModel] для этого экрана
+ * @param navController         для навигации
+ */
 @Composable
-fun RecipeScreen(vm: RecipeViewModel = viewModel()) {
-
+fun RecipeScreen(viewModel: RecipeViewModel, navController: NavController) {
 }

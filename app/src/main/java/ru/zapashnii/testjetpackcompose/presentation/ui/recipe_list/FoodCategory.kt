@@ -8,7 +8,7 @@ import ru.zapashnii.testjetpackcompose.presentation.ui.recipe_list.FoodCategory.
  * @property value
  */
 enum class FoodCategory(val value: String) {
-    SEARCH("All Recipes"),
+    SEARCH("Search"),
     CHICKEN("Chicken"),
     BEEF("Beef"),
     SOUP("Soup"),
