@@ -1,5 +1,6 @@
 package ru.zapashnii.testjetpackcompose.ui.fields
 
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -9,11 +10,18 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.layoutId
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.skydoves.landscapist.ShimmerParams
+import com.skydoves.landscapist.glide.GlideImage
+import com.skydoves.landscapist.rememberDrawablePainter
+import ru.zapashnii.testjetpackcompose.R
 import ru.zapashnii.testjetpackcompose.domain.model.Recipe
+import ru.zapashnii.testjetpackcompose.ui.theme.Shimmer
 import ru.zapashnii.testjetpackcompose.utils.DEFAULT_RECIPE_IMAGE
 import ru.zapashnii.testjetpackcompose.utils.loadPicture
 
@@ -41,7 +49,8 @@ fun RecipeCard(
     ) {
         Column {
             recipe.featuredImage?.let { url ->
-                val image = loadPicture(url = url, defaultImage = DEFAULT_RECIPE_IMAGE).value
+                //TODO Вариант загрузки с утилитой ImageUtils. Есть проблема изображения дергается после загрузки
+                /*val image = loadPicture(url = url, defaultImage = DEFAULT_RECIPE_IMAGE).value
                 image?.let { img ->
                     Image(
                         bitmap = img.asImageBitmap(),
@@ -52,7 +61,36 @@ fun RecipeCard(
                             .height(225.dp),
                         contentScale = ContentScale.Crop,
                     )
-                }
+                }*/
+
+                GlideImage(
+                    imageModel = url,
+                    modifier = Modifier
+                        .layoutId("${layoutId}Image")
+                        .fillMaxWidth()
+                        .height(225.dp),
+                    shimmerParams = ShimmerParams(
+                        baseColor = Shimmer,
+                        highlightColor = Color.White,
+                        durationMillis = 700,
+                        dropOff = 0.65f,
+                        tilt = 20f
+                    ),
+                    failure = {
+                        Image(
+                            painter = rememberDrawablePainter(
+                                drawable = AppCompatResources.getDrawable(
+                                    LocalContext.current, R.drawable.empty_plate)
+                            ),
+                            contentDescription = "Image recipe",
+                            modifier = Modifier
+                                .layoutId("${layoutId}Image")
+                                .fillMaxWidth()
+                                .height(225.dp),
+                            contentScale = ContentScale.Crop,
+                        )
+                    }
+                )
             }
             recipe.title?.let { title ->
                 Row(

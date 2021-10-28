@@ -91,7 +91,6 @@ class MainActivity : ComponentActivity() {
                                 modifier = Modifier.align(Alignment.BottomEnd)
                             )
                         }
-
                     }
                 }
             }
