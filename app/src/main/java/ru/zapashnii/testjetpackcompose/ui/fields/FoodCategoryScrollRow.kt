@@ -2,10 +2,10 @@ package ru.zapashnii.testjetpackcompose.ui.fields
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ScrollableTabRow
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.unit.dp
 import ru.zapashnii.testjetpackcompose.presentation.ui.recipe_list.getAllFoodCategories
@@ -28,7 +28,7 @@ fun FoodCategoryScrollRow(
             .padding(top = 8.dp, bottom = 8.dp),
         selectedTabIndex = selectedTabIndex,
         edgePadding = 16.dp,
-        backgroundColor = Color.White) {
+        backgroundColor = MaterialTheme.colors.onBackground) {
 
         for (category in getAllFoodCategories()) {
             FoodCategoryChip(
