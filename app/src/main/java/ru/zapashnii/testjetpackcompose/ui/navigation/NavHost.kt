@@ -48,9 +48,12 @@ fun NavigationHost(
             onNavigationEvent(RECIPE_LIST_SCREEN)
         }
         composable(RECIPE_SCREEN) {
+            //получить id рецепта
+            val idRecipe = navController.previousBackStackEntry?.arguments?.getInt("recipeId")
             RecipeScreen(
                 viewModel = viewModelRecipe,
-                navController = navController
+                navController = navController,
+                idRecipe = idRecipe
             )
             onNavigationEvent(RECIPE_SCREEN)
         }

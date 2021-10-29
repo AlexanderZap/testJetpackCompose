@@ -1,5 +1,6 @@
 package ru.zapashnii.testjetpackcompose.presentation.ui.recipe
 
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 
@@ -8,7 +9,9 @@ import androidx.navigation.NavController
  *
  * @param viewModel             viewModel [RecipeViewModel] для этого экрана
  * @param navController         для навигации
+ * @param idRecipe              id рецепта
  */
 @Composable
-fun RecipeScreen(viewModel: RecipeViewModel, navController: NavController) {
+fun RecipeScreen(viewModel: RecipeViewModel, navController: NavController, idRecipe: Int?) {
+    Text(text = "RecipeScreen idRecipe: $idRecipe")
 }

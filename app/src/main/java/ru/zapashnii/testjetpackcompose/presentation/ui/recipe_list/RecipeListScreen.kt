@@ -70,7 +70,13 @@ fun RecipeListScreen(viewModel: RecipeListViewModel, navController: NavControlle
                     }
                     RecipeCard(
                         recipe = recipe ?: Recipe(),
-                        onCardClick = { navController.navigate(RECIPE_SCREEN) }
+                        onCardClick = {
+                            if (recipe?.pk != null) {
+                                //передать id рецепта
+                                navController.currentBackStackEntry?.arguments?.putInt("recipeId", recipe.pk!!)
+                                navController.navigate(RECIPE_SCREEN)
+                            }
+                        }
                     )
                 }
             }

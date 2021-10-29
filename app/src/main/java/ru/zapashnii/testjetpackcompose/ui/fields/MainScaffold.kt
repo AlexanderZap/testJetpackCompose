@@ -1,5 +1,6 @@
 package ru.zapashnii.testjetpackcompose.ui.fields
 
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -80,6 +81,16 @@ fun MainScaffold(
         }
     }
 
+    //собираем drawerContent
+    //TODO если собирать два разных Scaffold, то при возврашении назад состояние не сохраняеться, иначе drawerContent пока не получается убрать на[RECIPE_SCREEN]
+    val drawerContent: @Composable ColumnScope.() -> Unit = {
+        if (currentScreen != RECIPE_SCREEN) {
+             Text("Пункт меню 1", fontSize = 28.sp)
+        } else {
+            null
+        }
+    }
+
     //собираем Scaffold
     if (currentScreen != RECIPE_SCREEN) {
         Scaffold(
@@ -113,6 +124,7 @@ fun MainScaffold(
             snackbarHost = { scaffoldState.snackbarHostState },
             topBar = topBar,
             bottomBar = bottomBar,
+            drawerContent = null
         ) {
             NavigationHost(
                 navController = navController,
