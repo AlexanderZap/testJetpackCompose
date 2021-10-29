@@ -1,6 +1,5 @@
 package ru.zapashnii.testjetpackcompose.ui.fields
 
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -81,37 +80,46 @@ fun MainScaffold(
         }
     }
 
-    //настраиваем DrawerContent
-    val drawerContent: @Composable ColumnScope.() -> Unit = {
-        if (currentScreen != RECIPE_SCREEN) {
-            Text("Пункт меню 1", fontSize = 28.sp)
-        }
-    }
-
     //собираем Scaffold
-    Scaffold(
-        scaffoldState = scaffoldState,
-        snackbarHost = { scaffoldState.snackbarHostState },
-        topBar = topBar,
-        bottomBar = bottomBar,
-        drawerContent = drawerContent,
-    ) {
-        //TODO статичное указание нижнего отступа
-        //Box(modifier = Modifier.padding(bottom = 64.dp)) {
-        NavigationHost(
-            navController = navController,
-            viewModelRecipeList = viewModelRecipeList,
-            viewModelRecipe = viewModelRecipe,
-            onNavigationEvent = { onNavigationEvent(it) }
-        )
-        //показать snackbar
-        /* DefaultSnackbar(
-             snackbarHostState = scaffoldState.snackbarHostState,
-             onDismiss = {
-                 scaffoldState.snackbarHostState.currentSnackbarData?.dismiss()
-             },
-             modifier = Modifier.align(Alignment.BottomEnd)
-         )
-     }*/
+    if (currentScreen != RECIPE_SCREEN) {
+        Scaffold(
+            scaffoldState = scaffoldState,
+            snackbarHost = { scaffoldState.snackbarHostState },
+            topBar = topBar,
+            bottomBar = bottomBar,
+            drawerContent = { Text("Пункт меню 1", fontSize = 28.sp) },
+        ) {
+            //TODO статичное указание нижнего отступа
+            //Box(modifier = Modifier.padding(bottom = 64.dp)) {
+            NavigationHost(
+                navController = navController,
+                viewModelRecipeList = viewModelRecipeList,
+                viewModelRecipe = viewModelRecipe,
+                onNavigationEvent = { onNavigationEvent(it) }
+            )
+            //показать snackbar
+            /* DefaultSnackbar(
+                 snackbarHostState = scaffoldState.snackbarHostState,
+                 onDismiss = {
+                     scaffoldState.snackbarHostState.currentSnackbarData?.dismiss()
+                 },
+                 modifier = Modifier.align(Alignment.BottomEnd)
+             )
+         }*/
+        }
+    } else {
+        Scaffold(
+            scaffoldState = scaffoldState,
+            snackbarHost = { scaffoldState.snackbarHostState },
+            topBar = topBar,
+            bottomBar = bottomBar,
+        ) {
+            NavigationHost(
+                navController = navController,
+                viewModelRecipeList = viewModelRecipeList,
+                viewModelRecipe = viewModelRecipe,
+                onNavigationEvent = { onNavigationEvent(it) }
+            )
+        }
     }
 }
