@@ -31,14 +31,6 @@ fun ToolbarPreview2() {
 
 @Preview
 @Composable
-fun TabBarCardPreview() {
-    TestJetpackComposeTheme {
-        BottomBar(countNotification = 100)
-    }
-}
-
-@Preview
-@Composable
 fun AppButtonPreview() {
     TestJetpackComposeTheme {
         AppButton()
