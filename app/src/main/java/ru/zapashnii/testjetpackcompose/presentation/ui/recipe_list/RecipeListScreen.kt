@@ -68,9 +68,10 @@ fun RecipeListScreen(viewModel: RecipeListViewModel, navController: NavControlle
                     if ((index + 1) >= (page * PAGE_SIZE) && !isLoading) {
                         viewModel.nextPage()
                     }
-                    RecipeCard(recipe = recipe ?: Recipe(), onCardClick = {
-                        navController.navigate(RECIPE_SCREEN)
-                    })
+                    RecipeCard(
+                        recipe = recipe ?: Recipe(),
+                        onCardClick = { navController.navigate(RECIPE_SCREEN) }
+                    )
                 }
             }
 
