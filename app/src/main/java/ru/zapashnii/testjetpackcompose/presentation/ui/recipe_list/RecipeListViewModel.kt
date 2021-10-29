@@ -10,6 +10,11 @@ import ru.zapashnii.testjetpackcompose.domain.model.Recipe
 import ru.zapashnii.testjetpackcompose.domain.model.params.SearchRecipesParams
 import javax.inject.Inject
 
+/**
+ * ViewModel для экрана списка рецептов(поиска) [RECIPE_LIST_SCREEN]
+ *
+ * @property searchRecipesUseCase       UseCase получения списка рецептов
+ */
 class RecipeListViewModel(
     private val searchRecipesUseCase: ISearchRecipesUseCase,
 ) : ViewModel() {
