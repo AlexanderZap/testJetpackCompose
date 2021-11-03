@@ -2,9 +2,7 @@ package ru.zapashnii.testjetpackcompose.presentation.ui.recipe
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.zapashnii.testjetpackcompose.domain.interactors.get_recipe.IGetRecipeUseCase
@@ -24,7 +22,8 @@ class RecipeViewModel(
     private val idRecipe: MutableState<Int?> = mutableStateOf(null)
 
     /** Рецепт */
-    val recipe: MutableState<Recipe?> = mutableStateOf(null)
+    private var _recipe = MutableLiveData<Recipe?>().apply { value = null }
+    val recipe: LiveData<Recipe?> = _recipe
 
     /** Идет загрузка */
     val isLoading = mutableStateOf(false)
@@ -40,7 +39,7 @@ class RecipeViewModel(
     }
 
     /** Выполнить поиск */
-    fun searchRecipe() {
+    private fun searchRecipe() {
         viewModelScope.launch {
             isLoading.value = true
 
@@ -50,7 +49,7 @@ class RecipeViewModel(
             if (idRecipe.value != null) {
                 val result = getRecipeUseCase.getRecipeById(idRecipe = idRecipe.value!!)
 
-                recipe.value = result
+                _recipe.value = result
             }
 
             isLoading.value = false

@@ -37,7 +37,7 @@ data class Recipe(
     @SerializedName("cooking_instructions")
     var cookingInstructions: String? = null,
     @SerializedName("ingredients")
-    var ingredients: List<String?>? = listOf(),
+    var ingredients: List<String> = listOf(),
     @SerializedName("date_added")
     var dateAdded: String? = null,
     @SerializedName("date_updated")

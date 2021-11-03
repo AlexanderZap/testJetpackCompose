@@ -56,7 +56,7 @@ fun MainScaffold(
     if (currentScreen == RECIPE_SCREEN) {
         topBar = {
             Toolbar(
-                textTitleRes = R.string.app_name,
+                textTitleRes = R.string.recipe,
                 onBackClick = { navController.popBackStack() }
             )
         }
