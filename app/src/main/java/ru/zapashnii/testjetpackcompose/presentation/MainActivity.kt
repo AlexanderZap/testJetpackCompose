@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.compose.material.*
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.lifecycleScope
+import ru.zapashnii.testjetpackcompose.di.MainApp
 import ru.zapashnii.testjetpackcompose.presentation.ui.recipe.RecipeViewModel
 import ru.zapashnii.testjetpackcompose.presentation.ui.recipe_list.RecipeListViewModel
 import ru.zapashnii.testjetpackcompose.ui.fields.MainScaffold
@@ -37,7 +38,7 @@ class MainActivity : ComponentActivity() {
         val currentScreen = mutableStateOf(HOME_SCREEN)
 
         setContent {
-            TestJetpackComposeTheme {
+            TestJetpackComposeTheme(darkTheme = MainApp.instance.isDark.value) {
                 Surface(color = MaterialTheme.colors.background) {
                     MainScaffold(
                         snackbarController = snackbarController,

@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import ru.zapashnii.testjetpackcompose.data.const.PAGE_SIZE
+import ru.zapashnii.testjetpackcompose.di.MainApp
 import ru.zapashnii.testjetpackcompose.domain.model.Recipe
 import ru.zapashnii.testjetpackcompose.ui.common.VisibilityAnimationComponent
 import ru.zapashnii.testjetpackcompose.ui.fields.*
@@ -51,8 +52,7 @@ fun RecipeListScreen(viewModel: RecipeListViewModel, navController: NavControlle
             getSelectedTabIndex = viewModel.getSelectedTabIndex(),
             selectedCategory = selectedCategory,
             onSelectedCategoryChanged = viewModel::onSelectedCategoryChanged,
-            //TODO менять тему по нажатию
-            onToggleTheme = {}
+            onToggleTheme = { MainApp.instance.toggleLightTheme() }
         )
 
         Box(
@@ -73,7 +73,8 @@ fun RecipeListScreen(viewModel: RecipeListViewModel, navController: NavControlle
                         onCardClick = {
                             if (recipe?.pk != null) {
                                 //передать id рецепта
-                                navController.currentBackStackEntry?.arguments?.putInt("recipeId", recipe.pk!!)
+                                navController.currentBackStackEntry?.arguments?.putInt("recipeId",
+                                    recipe.pk!!)
                                 navController.navigate(RECIPE_SCREEN)
                             }
                         }
