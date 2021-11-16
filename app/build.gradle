@@ -111,6 +111,7 @@ dependencies {
     implementation "com.google.android.material:compose-theme-adapter:1.0.2" // When using a MDC theme
     implementation "com.google.accompanist:accompanist-drawablepainter:0.16.0" // When using a AppCompat theme
     implementation "androidx.constraintlayout:constraintlayout-compose:1.0.0-rc01"
+    implementation "androidx.compose.material:material-icons-extended:1.0.3"
 //    androidTestImplementation 'androidx.compose.ui:ui-test-junit4:1.0.1' // UI Tests
 
     // Navigation component
