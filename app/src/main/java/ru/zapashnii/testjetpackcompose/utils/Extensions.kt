@@ -66,3 +66,14 @@ fun String.toBitmapFromBase64(): Bitmap {
     val decodedString: ByteArray = Base64.decode(this, Base64.DEFAULT)
     return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
 }
+
+/**
+ * Форматирование суммы
+ * @param round     количество знаков после запятой
+ * @return          строка с суммой и валютой. Если сумма будет null, то на выходе null
+ */
+fun String?.formatToMoney(round: Int = 2): String? {
+    if (this == null) return null
+    val value = this.convertToDouble()
+    return "%,.${round}f".format(value)
+}

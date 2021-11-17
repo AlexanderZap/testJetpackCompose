@@ -64,4 +64,19 @@ object Utils {
     fun getString(@StringRes name: Int): String {
         return MainApp.instance.getString(name)
     }
+
+    /**
+     * Получить символ валюты по ISO коду
+     * @param currencyCodeISO   ISO код валюты
+     * @return                  символ валюты
+     */
+    fun getCurrency(currencyCodeISO: String?): String {
+        return when (currencyCodeISO) {
+            "RUB" -> "\u20BD"
+            "RUR" -> "\u20BD"
+            "USD" -> "$"
+            "EUR" -> "€"
+            else -> ""
+        }
+    }
 }
