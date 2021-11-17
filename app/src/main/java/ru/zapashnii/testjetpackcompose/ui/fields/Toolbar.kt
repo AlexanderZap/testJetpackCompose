@@ -11,8 +11,45 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import ru.zapashnii.testjetpackcompose.R
 import ru.zapashnii.testjetpackcompose.ui.theme.Grey1
+
+/**
+ * Тулбар с заголовком и кнопкой Назад
+ *
+ * @param textTitle             заголовок тулбара
+ * @param layoutId              префикс идентификатора элемента в его родительском элементе
+ * @param iconImageVector       изображение навигации. По умолчанию Стрелка Назад
+ * @param onBackClick           нажатие на кнопку
+ */
+@Composable
+fun Toolbar(
+    textTitle: String,
+    iconImageVector: ImageVector = Icons.Filled.ArrowBack,
+    layoutId: String = "toolbar",
+    onBackClick: () -> Unit = {},
+) {
+    TopAppBar(
+        title = {
+            Text(
+                modifier = Modifier.layoutId("${layoutId}Title"),
+                text = textTitle,
+                color = Grey1,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+            )
+        },
+        navigationIcon = {
+            IconButton(
+                modifier = Modifier.layoutId("${layoutId}Button"),
+                onClick = onBackClick
+            ) {
+                Icon(imageVector = iconImageVector, contentDescription = null)
+            }
+        }
+    )
+}
 
 /**
  * Тулбар с заголовком и кнопкой Назад
@@ -25,25 +62,14 @@ import ru.zapashnii.testjetpackcompose.ui.theme.Grey1
 @Composable
 fun Toolbar(
     textTitleRes: Int = R.string.app_name,
-    iconImageVector: ImageVector = Icons.Filled.ArrowBack,
     layoutId: String = "toolbar",
+    iconImageVector: ImageVector = Icons.Filled.ArrowBack,
     onBackClick: () -> Unit = {},
 ) {
-    TopAppBar(
-        title = {
-            Text(
-                modifier = Modifier.layoutId("${layoutId}Title"),
-                text = stringResource(id = textTitleRes),
-                color = Grey1
-            )
-        },
-        navigationIcon = {
-            IconButton(
-                modifier = Modifier.layoutId("${layoutId}Button"),
-                onClick = onBackClick
-            ) {
-                Icon(imageVector = iconImageVector, contentDescription = null)
-            }
-        }
+    Toolbar(
+        textTitle = stringResource(textTitleRes),
+        layoutId = layoutId,
+        onBackClick = onBackClick,
+        iconImageVector = iconImageVector
     )
 }
