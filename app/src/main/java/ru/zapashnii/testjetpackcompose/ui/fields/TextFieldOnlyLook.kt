@@ -3,18 +3,21 @@ package ru.zapashnii.testjetpackcompose.ui.fields
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.material.*
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.LocalTextStyle
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import ru.zapashnii.testjetpackcompose.ui.common.IconParams
 import ru.zapashnii.testjetpackcompose.ui.common.Mask
 import ru.zapashnii.testjetpackcompose.ui.theme.BackgroundTextField
 
@@ -23,19 +26,15 @@ import ru.zapashnii.testjetpackcompose.ui.theme.BackgroundTextField
  *
  * @param modifier          модификатор для настройки Box
  * @param text              текст отображаемый в TextField
- * @param onClickIcon       нажатие на иконку
- * @param isNeedIcon        отображать иконку в конце
- * @param icons             иконка
  * @param mask              маска форматирования
+ * @param iconParams      вспомогательный класс для групироки связанных параметров
  */
 @Composable
 fun TextFieldOnlyLook(
     modifier: Modifier = Modifier,
     text: String,
-    onClickIcon: () -> Unit = {},
-    isNeedIcon: Boolean = true,
-    icons: ImageVector = Icons.Default.ContentCopy,
     mask: Mask = Mask.None,
+    iconParams: IconParams? = null,
 ) {
     Box(modifier = modifier
         .clip(MaterialTheme.shapes.large)
@@ -61,7 +60,7 @@ fun TextFieldOnlyLook(
                 visualTransformation = mask.transformation,
                 textStyle = LocalTextStyle.current,
             )
-            if (isNeedIcon) {
+            if (iconParams != null) {
                 IconButton(
                     modifier = Modifier
                         .size(24.dp)
@@ -71,9 +70,9 @@ fun TextFieldOnlyLook(
                             end.linkTo(parent.end, 8.dp)
                             bottom.linkTo(parent.bottom)
                         },
-                    onClick = onClickIcon,
+                    onClick = iconParams.onClick,
                 ) {
-                    Icon(icons,
+                    Icon(iconParams.icon,
                         "",
                         tint = MaterialTheme.colors.primary
                     )
@@ -86,5 +85,11 @@ fun TextFieldOnlyLook(
 @Preview
 @Composable
 fun TextFieldOnlyLookPreview() {
-    TextFieldOnlyLook(text = "123456789")
+    TextFieldOnlyLook(
+        text = "123456789",
+        iconParams = IconParams(
+            icon = Icons.Default.ContentCopy,
+            onClick = {}
+        )
+    )
 }
