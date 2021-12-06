@@ -170,4 +170,54 @@ fun cardNumFilter(text: AnnotatedString): TransformedText {
     }
     return TransformedText(AnnotatedString(out), cardNumberOffsetTranslator)
 }
+
+/**
+ * Трансформация номера телефона
+ *
+ * Пример:
+ *     номер телефона = 9189448746
+ *     результат = +7(918) 944 87 46
+ *
+ */
+class TransformationPhoneNumber : VisualTransformation {
+    override fun filter(text: AnnotatedString): TransformedText {
+        return filterPhoneNum(text)
+    }
+}
+
+fun filterPhoneNum(text: AnnotatedString): TransformedText {
+
+    // +7(XXX)_XXX_XX_XX
+    val trimmed = if (text.text.length >= 10) text.text.substring(0..9) else text.text
+    var out = ""
+    for (i in trimmed.indices) {
+        if (i == 0) out += "+7("
+        if (i == 3) out += ") "
+        if (i == 6 || i == 8) out += " "
+        out += trimmed[i]
+    }
+
+    val phoneNumberOffsetTranslator = object : OffsetMapping {
+        override fun originalToTransformed(offset: Int): Int {
+            if (offset <= 0) return offset
+            if (offset <= 3) return offset + 3
+            if (offset <= 6) return offset + 5
+            if (offset <= 8) return offset + 6
+            if (offset <= 10) return offset + 7
+            return 17
+
+        }
+
+        override fun transformedToOriginal(offset: Int): Int {
+            if (offset <= 0) return offset
+            if (offset <= 6) return offset - 3
+            if (offset <= 11) return offset - 5
+            if (offset <= 14) return offset - 6
+            if (offset <= 18) return offset - 7
+            return 10
+        }
+    }
+
+    return TransformedText(AnnotatedString(out), phoneNumberOffsetTranslator)
+}
 /**---------------------------------------------------------------------------------------------------------*/
