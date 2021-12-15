@@ -22,3 +22,6 @@ val RedErrorDark = Color(0xFFB00020)
 val RedErrorLight = Color(0xFFEF5350)
 
 val BackgroundTextField = Color(0xFFE4E4E4)
+
+val BackgroundIndicatorPinSwitchOn = Color(0xFF1768B1)
+val BackgroundIndicatorPinSwitchOf = Color(0xFFDEE6ED)
